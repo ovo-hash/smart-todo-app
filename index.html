@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="style.css">
+
+<div class="app">
+
+  <h1>Smart To-Do</h1>
+
+  <div>
+    <input id="taskInput" placeholder="Add task..." />
+    <button id="addBtn">Add</button>
+  </div>
+
+  <div>
+    <button onclick="setFilter('all')">All</button>
+    <button onclick="setFilter('active')">Active</button>
+    <button onclick="setFilter('completed')">Completed</button>
+    <button onclick="clearCompleted()">Clear Completed</button>
+  </div>
+
+  <p id="taskCounter"></p>
+
+  <ul id="taskList"></ul>
+</div>
+
+<script src="script.js"></script>
