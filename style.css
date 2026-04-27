@@ -1,43 +1,133 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
   background: #121212;
   color: white;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  align-items: flex-start;
 }
 
 .app {
   background: #1e1e1e;
-  padding: 20px;
-  width: 350px;
-  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 40px;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 24px;
 }
 
 input {
-  padding: 10px;
-  width: 70%;
+  width: 100%;
+  padding: 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 button {
-  padding: 10px;
+  padding: 10px 14px;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+button:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+#addBtn {
+  width: 100%;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.filter-buttons button {
+  flex: 1;
+  min-width: 100px;
+}
+
+#taskCounter {
+  font-size: 14px;
+  color: #cccccc;
+  margin-bottom: 12px;
 }
 
 ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 li {
   background: #2a2a2a;
-  padding: 10px;
+  padding: 12px;
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
-  border-radius: 5px;
+  align-items: center;
+  gap: 12px;
+  border-radius: 10px;
+}
+
+li span {
+  word-break: break-word;
+  flex: 1;
+}
+
+li div {
+  display: flex;
+  gap: 6px;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  body {
+    padding: 12px;
+  }
+
+  .app {
+    margin-top: 20px;
+    padding: 18px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  li {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  li div {
+    justify-content: flex-end;
+  }
 }

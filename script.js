@@ -1,5 +1,4 @@
 let currentFilter = "all";
-
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
 const taskInput = document.getElementById("taskInput");
@@ -14,7 +13,27 @@ function saveTasks() {
 function renderTasks() {
   taskList.innerHTML = "";
 
-  tasks.forEach((task, index) => {
+  const activeTasks = tasks.filter(task => !task.completed).length;
+  taskCounter.textContent = `${activeTasks} task(s) left`;
+
+  let filteredTasks = tasks;
+
+  if (currentFilter === "active") {
+    filteredTasks = tasks.filter(task => !task.completed);
+  }
+
+  if (currentFilter === "completed") {
+    filteredTasks = tasks.filter(task => task.completed);
+  }
+
+  if (filteredTasks.length === 0) {
+    taskList.innerHTML = "<p>No tasks to show</p>";
+    return;
+  }
+
+  filteredTasks.forEach((task) => {
+    const realIndex = tasks.indexOf(task);
+
     const li = document.createElement("li");
 
     li.innerHTML = `
@@ -22,8 +41,8 @@ function renderTasks() {
         ${task.text}
       </span>
       <div>
-        <button onclick="toggleTask(${index})">✔</button>
-        <button onclick="deleteTask(${index})">❌</button>
+        <button onclick="toggleTask(${realIndex})">✔</button>
+        <button onclick="deleteTask(${realIndex})">❌</button>
       </div>
     `;
 
@@ -32,7 +51,7 @@ function renderTasks() {
 }
 
 function addTask() {
-  const text = taskInput.value;
+  const text = taskInput.value.trim();
   if (text === "") return;
 
   tasks.push({ text: text, completed: false });
@@ -73,37 +92,4 @@ taskInput.addEventListener("keydown", function (event) {
   }
 });
 
-function renderTasks() {
-  taskList.innerHTML = "";
-
-  let filteredTasks = tasks;
-
-  if (currentFilter === "active") {
-    filteredTasks = tasks.filter(task => !task.completed);
-  }
-
-  if (currentFilter === "completed") {
-    filteredTasks = tasks.filter(task => task.completed);
-  }
-
-  const activeTasks = tasks.filter(task => !task.completed).length;
-  taskCounter.textContent = `${activeTasks} task(s) left`;
-
-  filteredTasks.forEach((task) => {
-    const realIndex = tasks.indexOf(task);
-
-    const li = document.createElement("li");
-
-    li.innerHTML = `
-      <span style="text-decoration: ${task.completed ? "line-through" : "none"}">
-        ${task.text}
-      </span>
-      <div>
-        <button onclick="toggleTask(${realIndex})">✔</button>
-        <button onclick="deleteTask(${realIndex})">❌</button>
-      </div>
-    `;
-
-    taskList.appendChild(li);
-  });
-}
+renderTasks();
